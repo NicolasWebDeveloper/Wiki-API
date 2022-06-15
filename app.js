@@ -49,6 +49,18 @@ app.route("/articles/:title")
         )
     })
 
+    .delete((req, res) => {
+        Article.deleteOne({title: req.params.title}, (error, result) => {
+            if (!error) {
+                res.send("Successfully!");
+                console.log("Successfully!");
+            } else {
+                console.log(error);
+                res.send("Error!");
+            }
+        })  
+    })
+
     .put((req, res) => {
         Article.updateOne(
             {title: req.params.title},
