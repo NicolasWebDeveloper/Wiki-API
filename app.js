@@ -23,7 +23,7 @@ app.route("/articles/:title")
         Article.findOne({title: req.params.title}, (error, result) => {
             if (!error) {
                 if (result) {
-                    res.send(result)
+                    res.send(result);
                 } else {
                     res.send("Not found!");
                 }
@@ -31,6 +31,22 @@ app.route("/articles/:title")
                 console.log(error);
             }
         });
+    })
+
+    .patch((req, res) => {
+        Article.updateOne(
+            {title: req.params.title},
+            {$set: req.body},
+            (error, result) => {
+                if (!error) {
+                    console.log(result);
+                    res.send("Successfully updated!")
+                } else {
+                    console.log(error);
+                    req.send("Error!");
+                }
+            }
+        )
     })
 
     .put((req, res) => {
