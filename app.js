@@ -34,11 +34,20 @@ app.route("/articles/:title")
     })
 
     .put((req, res) => {
-        Article.update(
+        Article.updateOne(
             {title: req.params.title},
             {
                 title: req.body.title,
                 content: req.body.content
+            },
+            (error, results) => {
+                if (!error) {
+                    res.send(results);
+                    console.log(results);
+                } else {
+                    res.send("Error!")
+                    console.log(error);
+                }
             }
         )   
     });
